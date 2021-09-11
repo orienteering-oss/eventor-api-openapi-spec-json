@@ -1,18 +1,19 @@
 # eventor-api-openapi-spec
 
+[![Travis build status](https://app.travis-ci.com/orienteering-oss/eventor-api-openapi-spec-json.svg?branch=main)](https://travis-ci.com/github/orienteering-oss/eventor-api-openapi-spec-json)
+
 :warning: **NB:** this is an unofficial JSON version of the API. See
 [orienteering-oss/eventor-api-openapi-spec](https://github.com/orienteering-oss/eventor-api-openapi-spec)
 for an unofficial XML version (that is closer / equal to the official version of
 the API).
 
-[![Travis build status](https://app.travis-ci.com/orienteering-oss/eventor-api-openapi-spec-json.svg?branch=main)](https://travis-ci.com/github/orienteering-oss/eventor-api-openapi-spec-json)
-
-OpenAPI spec / Swagger for the Eventor API: [openapi.yml](./openapi.yml).
+JSON version of the OpenAPI spec / Swagger for the Eventor API:
+[openapi.yml](./openapi.yml).
 
 You can browse the
-[Swagger UI](https://orienteering-oss.github.io/eventor-api-openapi-spec) for
-this spec, but it will not work because of CORS. You can use it to browse and
-create cURL commands that you can execute in your own terminal. Or you could
+[Swagger UI](https://orienteering-oss.github.io/eventor-api-openapi-spec-json)
+for this spec, but it will not work because of CORS. You can use it to browse
+and create cURL commands that you can execute in your own terminal. Or you could
 import the OpenAPI spec into Postman and make your calls from there.
 
 **What is Eventor?** Eventor is the event system for
@@ -39,13 +40,12 @@ specification).
 
 ## See also
 
-- All data returned from the API is specified in IOF XSD v3, see this and JSON
-  version of the same spec in
+- Almost all data returned from the API is specified in IOF JSON schema v3, see
+  this and XML version of the same spec in
   [orienteering-oss/iof-orienteering-data-schemas](https://github.com/orienteering-oss/iof-orienteering-data-schemas)
 - Java helper library for converting XML from Eventor to JSON objects (and
-  back): [orienteering-oss/iof-xml](https://github.com/orienteering-oss/iof-xml)
-- WIP: JavaScript helper library for converting XML from Eventor to JSON
-  objects:
-  [mikaello/eventor-api-json-types](https://github.com/mikaello/eventor-api-json-types)
+  back): [orienteering-oss/iof-xml](https://github.com/orienteering-oss/iof-xml).
+  It is actually this library that does the converting behind the scenes for this
+  version of the API.
 - GraphQL version of the Eventor API:
   [mikaello/eventor-graphql-api](https://github.com/mikaello/eventor-graphql-api)
