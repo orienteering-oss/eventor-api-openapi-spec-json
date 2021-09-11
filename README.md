@@ -1,4 +1,4 @@
-# eventor-api-openapi-spec
+# eventor-api-openapi-spec-json
 
 [![Travis build status](https://app.travis-ci.com/orienteering-oss/eventor-api-openapi-spec-json.svg?branch=main)](https://travis-ci.com/github/orienteering-oss/eventor-api-openapi-spec-json)
 
