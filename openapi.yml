@@ -213,7 +213,7 @@ paths:
                 type: array
                 items:
                   type: object
-                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items/properties/teamFee/items'
+                  $ref: '#/components/schemas/fee_'
   /organisation/apiKey:
     get:
       summary: Returns the organisation that the specified API key belongs to.
@@ -223,7 +223,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items'
+                $ref: '#/components/schemas/organisation_'
   /organisations:
     get:
       summary: Returns a list with all organisations (federations, state associations and clubs).
@@ -258,7 +258,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items'
+                $ref: '#/components/schemas/organisation_'
   /persons/organisations/{organisationId}:
     get:
       summary: Returns all persons that are members of an organisation.
@@ -284,7 +284,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person'
+                  $ref: '#/components/schemas/person'
   /competitors:
     get:
       summary: Returns event settings (punching card numbers, pre-selected classes) for all persons that have specified these settings within an organisation.
@@ -361,7 +361,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person'
+                $ref: '#/components/schemas/person'
   /entries:
     get:
       summary: Returns persons entered to an event as specified by the search parameters.
@@ -897,435 +897,10 @@ components:
         competitor:
           type: array
           items:
-            type: object
-            properties:
-              person:
-                type: object
-                properties:
-                  id:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        value:
-                          type: string
-                        type:
-                          type: string
-                  name:
-                    type: object
-                    properties:
-                      family:
-                        type: string
-                      given:
-                        type: string
-                  birthDate:
-                    type: integer
-                    format: utc-millisec
-                  nationality:
-                    type: object
-                    properties:
-                      value:
-                        type: string
-                      code:
-                        type: string
-                  address:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        careOf:
-                          type: string
-                        street:
-                          type: string
-                        zipCode:
-                          type: string
-                        city:
-                          type: string
-                        state:
-                          type: string
-                        country:
-                          type: object
-                          $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/nationality'
-                        type:
-                          type: string
-                        modifyTime:
-                          type: integer
-                          format: utc-millisec
-                  contact:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        value:
-                          type: string
-                        type:
-                          type: string
-                        modifyTime:
-                          type: integer
-                          format: utc-millisec
-                  extensions:
-                    type: object
-                    properties:
-                      any:
-                        type: array
-                        items: {}
-                  sex:
-                    type: string
-                  modifyTime:
-                    type: integer
-                    format: utc-millisec
-              organisation:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
-                    name:
-                      type: string
-                    shortName:
-                      type: string
-                    mediaName:
-                      type: string
-                    parentOrganisationId:
-                      type: integer
-                    country:
-                      type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/nationality'
-                    address:
-                      type: array
-                      items:
-                        type: object
-                        $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/address/items'
-                    contact:
-                      type: array
-                      items:
-                        type: object
-                        $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/contact/items'
-                    position:
-                      type: object
-                      properties:
-                        lng:
-                          type: number
-                        lat:
-                          type: number
-                        alt:
-                          type: number
-                    account:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          value:
-                            type: string
-                          type:
-                            type: string
-                    role:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          person:
-                            type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person'
-                          type:
-                            type: string
-                    logotype:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          value:
-                            type: array
-                            items:
-                              type: integer
-                          url:
-                            type: string
-                          mediaType:
-                            type: string
-                          width:
-                            type: integer
-                          height:
-                            type: integer
-                          resolution:
-                            type: number
-                    extensions:
-                      type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
-                    type:
-                      type: string
-                    modifyTime:
-                      type: integer
-                      format: utc-millisec
-              controlCard:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    value:
-                      type: string
-                    punchingSystem:
-                      type: string
-                    modifyTime:
-                      type: integer
-                      format: utc-millisec
-              clazz:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
-                    name:
-                      type: string
-                    shortName:
-                      type: string
-                    classType:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
-                          name:
-                            type: string
-                          modifyTime:
-                            type: integer
-                            format: utc-millisec
-                    leg:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          name:
-                            type: string
-                          extensions:
-                            type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
-                          minNumberOfCompetitors:
-                            type: integer
-                          maxNumberOfCompetitors:
-                            type: integer
-                    teamFee:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
-                          name:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                value:
-                                  type: string
-                                language:
-                                  type: string
-                          amount:
-                            type: object
-                            properties:
-                              value:
-                                type: number
-                              currency:
-                                type: string
-                          taxableAmount:
-                            type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items/properties/teamFee/items/properties/amount'
-                          percentage:
-                            type: number
-                          taxablePercentage:
-                            type: number
-                          validFromTime:
-                            type: integer
-                            format: utc-millisec
-                          validToTime:
-                            type: integer
-                            format: utc-millisec
-                          fromDateOfBirth:
-                            type: integer
-                            format: utc-millisec
-                          toDateOfBirth:
-                            type: integer
-                            format: utc-millisec
-                          extensions:
-                            type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
-                          type:
-                            type: string
-                          modifyTime:
-                            type: integer
-                            format: utc-millisec
-                    fee:
-                      type: array
-                      items:
-                        type: object
-                        $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items/properties/teamFee/items'
-                    status:
-                      type: string
-                      enum:
-                        - NORMAL
-                        - DIVIDED
-                        - JOINED
-                        - INVALIDATED
-                        - INVALIDATED_NO_FEE
-                    raceClass:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          punchingSystem:
-                            type: array
-                            items:
-                              type: string
-                          teamFee:
-                            type: array
-                            items:
-                              type: object
-                              $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items/properties/teamFee/items'
-                          fee:
-                            type: array
-                            items:
-                              type: object
-                              $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items/properties/teamFee/items'
-                          firstStart:
-                            type: integer
-                            format: utc-millisec
-                          status:
-                            type: string
-                            enum:
-                              - START_TIMES_NOT_ALLOCATED
-                              - START_TIMES_ALLOCATED
-                              - NOT_USED
-                              - COMPLETED
-                              - INVALIDATED
-                              - INVALIDATED_NO_FEE
-                          course:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                id:
-                                  type: object
-                                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
-                                name:
-                                  type: string
-                                courseFamily:
-                                  type: string
-                                length:
-                                  type: number
-                                climb:
-                                  type: number
-                                numberOfControls:
-                                  type: integer
-                          onlineControl:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                id:
-                                  type: object
-                                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
-                                punchingUnitId:
-                                  type: array
-                                  items:
-                                    type: object
-                                    $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
-                                name:
-                                  type: array
-                                  items:
-                                    type: object
-                                    $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items/properties/teamFee/items/properties/name/items'
-                                position:
-                                  type: object
-                                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items/properties/position'
-                                mapPosition:
-                                  type: object
-                                  properties:
-                                    x:
-                                      type: number
-                                    'y':
-                                      type: number
-                                    unit:
-                                      type: string
-                                extensions:
-                                  type: object
-                                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
-                                type:
-                                  type: string
-                                  enum:
-                                    - CONTROL
-                                    - START
-                                    - FINISH
-                                    - CROSSING_POINT
-                                    - END_OF_MARKED_ROUTE
-                                modifyTime:
-                                  type: integer
-                                  format: utc-millisec
-                          extensions:
-                            type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
-                          raceNumber:
-                            type: integer
-                          maxNumberOfCompetitors:
-                            type: integer
-                          modifyTime:
-                            type: integer
-                            format: utc-millisec
-                    tooFewEntriesSubstituteClass:
-                      type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items'
-                    tooManyEntriesSubstituteClass:
-                      type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items'
-                    extensions:
-                      type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
-                    minAge:
-                      type: integer
-                    maxAge:
-                      type: integer
-                    sex:
-                      type: string
-                    minNumberOfTeamMembers:
-                      type: integer
-                    maxNumberOfTeamMembers:
-                      type: integer
-                    minTeamAge:
-                      type: integer
-                    maxTeamAge:
-                      type: integer
-                    numberOfCompetitors:
-                      type: integer
-                    maxNumberOfCompetitors:
-                      type: integer
-                    resultListMode:
-                      type: string
-                    modifyTime:
-                      type: integer
-                      format: utc-millisec
-              score:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    value:
-                      type: number
-                    type:
-                      type: string
-              extensions:
-                type: object
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
-              modifyTime:
-                type: integer
-                format: utc-millisec
+            $ref: '#/components/schemas/competitor_'
         extensions:
           type: object
-          $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+          $ref: '#/components/schemas/extensions'
     organisationList:
       type: object
       properties:
@@ -1340,10 +915,10 @@ components:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items'
+            $ref: '#/components/schemas/organisation_'
         extensions:
           type: object
-          $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+          $ref: '#/components/schemas/extensions'
     eventList:
       type: object
       properties:
@@ -1361,21 +936,13 @@ components:
             properties:
               id:
                 type: object
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                $ref: '#/components/schemas/id_'
               name:
                 type: string
               startTime:
-                type: object
-                properties:
-                  date:
-                    type: integer
-                    format: utc-millisec
-                  time:
-                    type: integer
-                    format: utc-millisec
+                $ref: '#/components/schemas/dateTime'
               endTime:
-                type: object
-                $ref: '#/components/schemas/eventList/properties/event/items/properties/startTime'
+                $ref: '#/components/schemas/dateTime'
               status:
                 type: string
                 enum:
@@ -1405,17 +972,17 @@ components:
                 type: array
                 items:
                   type: object
-                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items'
+                  $ref: '#/components/schemas/organisation_'
               official:
                 type: array
                 items:
                   type: object
-                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items/properties/role/items'
+                  $ref: '#/components/schemas/role_'
               clazz:
                 type: array
                 items:
                   type: object
-                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items'
+                  $ref: '#/components/schemas/clazz_'
               race:
                 type: array
                 items:
@@ -1427,10 +994,10 @@ components:
                       type: string
                     startTime:
                       type: object
-                      $ref: '#/components/schemas/eventList/properties/event/items/properties/startTime'
+                      $ref: '#/components/schemas/dateTime'
                     endTime:
                       type: object
-                      $ref: '#/components/schemas/eventList/properties/event/items/properties/startTime'
+                      $ref: '#/components/schemas/dateTime'
                     status:
                       type: string
                       enum:
@@ -1450,7 +1017,7 @@ components:
                         - CLUB
                     position:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items/properties/position'
+                      $ref: '#/components/schemas/position'
                     discipline:
                       type: array
                       items:
@@ -1465,12 +1032,12 @@ components:
                       type: array
                       items:
                         type: object
-                        $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items'
+                        $ref: '#/components/schemas/organisation_'
                     official:
                       type: array
                       items:
                         type: object
-                        $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items/properties/role/items'
+                        $ref: '#/components/schemas/role_'
                     service:
                       type: array
                       items:
@@ -1478,29 +1045,29 @@ components:
                         properties:
                           id:
                             type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                            $ref: '#/components/schemas/id_'
                           name:
                             type: array
                             items:
                               type: object
-                              $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items/properties/teamFee/items/properties/name/items'
+                              $ref: '#/components/schemas/languageString'
                           fee:
                             type: array
                             items:
                               type: object
-                              $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items/properties/teamFee/items'
+                              $ref: '#/components/schemas/fee_'
                           description:
                             type: array
                             items:
                               type: object
-                              $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items/properties/teamFee/items/properties/name/items'
+                              $ref: '#/components/schemas/languageString'
                           maxNumber:
                             type: number
                           requestedNumber:
                             type: number
                           extensions:
                             type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                            $ref: '#/components/schemas/extensions'
                           type:
                             type: string
                           modifyTime:
@@ -1517,7 +1084,7 @@ components:
                             type: string
                     extensions:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                      $ref: '#/components/schemas/extensions'
                     modifyTime:
                       type: integer
                       format: utc-millisec
@@ -1528,12 +1095,12 @@ components:
                     type: array
                     items:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/address/items'
+                      $ref: '#/components/schemas/address_'
                   contact:
                     type: array
                     items:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/contact/items'
+                      $ref: '#/components/schemas/contact_'
               service:
                 type: array
                 items:
@@ -1578,7 +1145,7 @@ components:
                       type: string
                     position:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items/properties/position'
+                      $ref: '#/components/schemas/position'
                     details:
                       type: string
                     modifyTime:
@@ -1591,13 +1158,13 @@ components:
                   $ref: '#/components/schemas/eventList/properties/event/items/properties/information/items'
               extensions:
                 type: object
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                $ref: '#/components/schemas/extensions'
               modifyTime:
                 type: integer
                 format: utc-millisec
         extensions:
           type: object
-          $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+          $ref: '#/components/schemas/extensions'
     classList:
       type: object
       properties:
@@ -1612,10 +1179,10 @@ components:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items'
+            $ref: '#/components/schemas/clazz_'
         extensions:
           type: object
-          $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+          $ref: '#/components/schemas/extensions'
     entryList:
       type: object
       properties:
@@ -1636,14 +1203,14 @@ components:
             properties:
               id:
                 type: object
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                $ref: '#/components/schemas/id_'
               name:
                 type: string
               organisation:
                 type: array
                 items:
                   type: object
-                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items'
+                  $ref: '#/components/schemas/organisation_'
               teamEntryPerson:
                 type: array
                 items:
@@ -1651,10 +1218,10 @@ components:
                   properties:
                     person:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person'
+                      $ref: '#/components/schemas/person'
                     organisation:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items'
+                      $ref: '#/components/schemas/organisation_'
                     leg:
                       type: integer
                     legOrder:
@@ -1663,7 +1230,7 @@ components:
                       type: array
                       items:
                         type: object
-                        $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/controlCard/items'
+                        $ref: '#/components/schemas/controlCard_'
                     score:
                       type: array
                       items:
@@ -1672,28 +1239,15 @@ components:
                     assignedFee:
                       type: array
                       items:
-                        type: object
-                        properties:
-                          fee:
-                            type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items/properties/teamFee/items'
-                          paidAmount:
-                            type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items/properties/teamFee/items/properties/amount'
-                          extensions:
-                            type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
-                          modifyTime:
-                            type: integer
-                            format: utc-millisec
+                        $ref: '#/components/schemas/assignedFee_'
                     extensions:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                      $ref: '#/components/schemas/extensions'
               clazz:
                 type: array
                 items:
                   type: object
-                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items'
+                  $ref: '#/components/schemas/clazz_'
               race:
                 type: array
                 items:
@@ -1702,7 +1256,7 @@ components:
                 type: array
                 items:
                   type: object
-                  $ref: '#/components/schemas/entryList/properties/teamEntry/items/properties/teamEntryPerson/items/properties/assignedFee/items'
+                  $ref: '#/components/schemas/assignedFee_'
               serviceRequest:
                 type: array
                 items:
@@ -1710,7 +1264,7 @@ components:
                   properties:
                     id:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                      $ref: '#/components/schemas/id_'
                     service:
                       type: object
                       $ref: '#/components/schemas/eventList/properties/event/items/properties/race/items/properties/service/items'
@@ -1724,10 +1278,10 @@ components:
                       type: array
                       items:
                         type: object
-                        $ref: '#/components/schemas/entryList/properties/teamEntry/items/properties/teamEntryPerson/items/properties/assignedFee/items'
+                        $ref: '#/components/schemas/assignedFee_'
                     extensions:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                      $ref: '#/components/schemas/extensions'
                     modifyTime:
                       type: integer
                       format: utc-millisec
@@ -1736,10 +1290,10 @@ components:
                 properties:
                   organisation:
                     type: object
-                    $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items'
+                    $ref: '#/components/schemas/organisation_'
                   person:
                     type: object
-                    $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person'
+                    $ref: '#/components/schemas/person'
                   type:
                     type: string
               contactInformation:
@@ -1749,7 +1303,7 @@ components:
                 format: utc-millisec
               extensions:
                 type: object
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                $ref: '#/components/schemas/extensions'
               modifyTime:
                 type: integer
                 format: utc-millisec
@@ -1760,18 +1314,18 @@ components:
             properties:
               id:
                 type: object
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                $ref: '#/components/schemas/id_'
               person:
                 type: object
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person'
+                $ref: '#/components/schemas/person'
               organisation:
                 type: object
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items'
+                $ref: '#/components/schemas/organisation_'
               controlCard:
                 type: array
                 items:
                   type: object
-                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/controlCard/items'
+                  $ref: '#/components/schemas/controlCard_'
               score:
                 type: array
                 items:
@@ -1781,7 +1335,7 @@ components:
                 type: array
                 items:
                   type: object
-                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items'
+                  $ref: '#/components/schemas/clazz_'
               raceNumber:
                 type: array
                 items:
@@ -1790,7 +1344,7 @@ components:
                 type: array
                 items:
                   type: object
-                  $ref: '#/components/schemas/entryList/properties/teamEntry/items/properties/teamEntryPerson/items/properties/assignedFee/items'
+                  $ref: '#/components/schemas/assignedFee_'
               serviceRequest:
                 type: array
                 items:
@@ -1804,13 +1358,13 @@ components:
                 format: utc-millisec
               extensions:
                 type: object
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                $ref: '#/components/schemas/extensions'
               modifyTime:
                 type: integer
                 format: utc-millisec
         extensions:
           type: object
-          $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+          $ref: '#/components/schemas/extensions'
     courseData:
       type: object
       properties:
@@ -1836,7 +1390,7 @@ components:
                   properties:
                     id:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                      $ref: '#/components/schemas/id_'
                     image:
                       type: object
                       $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items/properties/logotype/items'
@@ -1844,13 +1398,13 @@ components:
                       type: number
                     mapPositionTopLeft:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items/properties/raceClass/items/properties/onlineControl/items/properties/mapPosition'
+                      $ref: '#/components/schemas/mapPosition'
                     mapPositionBottomRight:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items/properties/raceClass/items/properties/onlineControl/items/properties/mapPosition'
+                      $ref: '#/components/schemas/mapPosition'
                     extensions:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                      $ref: '#/components/schemas/extensions'
               control:
                 type: array
                 items:
@@ -1863,7 +1417,7 @@ components:
                   properties:
                     id:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                      $ref: '#/components/schemas/id_'
                     name:
                       type: string
                     courseFamily:
@@ -1885,14 +1439,14 @@ components:
                             type: string
                           mapTextPosition:
                             type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items/properties/raceClass/items/properties/onlineControl/items/properties/mapPosition'
+                            $ref: '#/components/schemas/mapPosition'
                           legLength:
                             type: number
                           score:
                             type: number
                           extensions:
                             type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                            $ref: '#/components/schemas/extensions'
                           type:
                             type: string
                             enum:
@@ -1914,7 +1468,7 @@ components:
                       type: integer
                     extensions:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                      $ref: '#/components/schemas/extensions'
                     numberOfCompetitors:
                       type: integer
                     modifyTime:
@@ -1927,7 +1481,7 @@ components:
                   properties:
                     classId:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                      $ref: '#/components/schemas/id_'
                     className:
                       type: string
                     allowedOnLeg:
@@ -1940,7 +1494,7 @@ components:
                       type: string
                     extensions:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                      $ref: '#/components/schemas/extensions'
                     numberOfCompetitors:
                       type: integer
               personCourseAssignment:
@@ -1950,7 +1504,7 @@ components:
                   properties:
                     entryId:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                      $ref: '#/components/schemas/id_'
                     bibNumber:
                       type: string
                     personName:
@@ -1963,7 +1517,7 @@ components:
                       type: string
                     extensions:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                      $ref: '#/components/schemas/extensions'
               teamCourseAssignment:
                 type: array
                 items:
@@ -1982,7 +1536,7 @@ components:
                         properties:
                           entryId:
                             type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                            $ref: '#/components/schemas/id_'
                           bibNumber:
                             type: string
                           leg:
@@ -1997,18 +1551,18 @@ components:
                             type: string
                           extensions:
                             type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                            $ref: '#/components/schemas/extensions'
                     extensions:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                      $ref: '#/components/schemas/extensions'
               extensions:
                 type: object
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                $ref: '#/components/schemas/extensions'
               raceNumber:
                 type: integer
         extensions:
           type: object
-          $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+          $ref: '#/components/schemas/extensions'
     startList:
       type: object
       properties:
@@ -2029,7 +1583,7 @@ components:
             properties:
               clazz:
                 type: object
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items'
+                $ref: '#/components/schemas/clazz_'
               course:
                 type: array
                 items:
@@ -2037,7 +1591,7 @@ components:
                   properties:
                     id:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                      $ref: '#/components/schemas/id_'
                     name:
                       type: string
                     courseFamily:
@@ -2066,13 +1620,13 @@ components:
                   properties:
                     entryId:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                      $ref: '#/components/schemas/id_'
                     person:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person'
+                      $ref: '#/components/schemas/person'
                     organisation:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items'
+                      $ref: '#/components/schemas/organisation_'
                     start:
                       type: array
                       items:
@@ -2090,12 +1644,12 @@ components:
                             type: array
                             items:
                               type: object
-                              $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/controlCard/items'
+                              $ref: '#/components/schemas/controlCard_'
                           assignedFee:
                             type: array
                             items:
                               type: object
-                              $ref: '#/components/schemas/entryList/properties/teamEntry/items/properties/teamEntryPerson/items/properties/assignedFee/items'
+                              $ref: '#/components/schemas/assignedFee_'
                           serviceRequest:
                             type: array
                             items:
@@ -2103,12 +1657,12 @@ components:
                               $ref: '#/components/schemas/entryList/properties/teamEntry/items/properties/serviceRequest/items'
                           extensions:
                             type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                            $ref: '#/components/schemas/extensions'
                           raceNumber:
                             type: integer
                     extensions:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                      $ref: '#/components/schemas/extensions'
                     modifyTime:
                       type: integer
                       format: utc-millisec
@@ -2119,14 +1673,14 @@ components:
                   properties:
                     entryId:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                      $ref: '#/components/schemas/id_'
                     name:
                       type: string
                     organisation:
                       type: array
                       items:
                         type: object
-                        $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items'
+                        $ref: '#/components/schemas/organisation_'
                     bibNumber:
                       type: string
                     teamMemberStart:
@@ -2136,13 +1690,13 @@ components:
                         properties:
                           entryId:
                             type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                            $ref: '#/components/schemas/id_'
                           person:
                             type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person'
+                            $ref: '#/components/schemas/person'
                           organisation:
                             type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items'
+                            $ref: '#/components/schemas/organisation_'
                           start:
                             type: array
                             items:
@@ -2164,12 +1718,12 @@ components:
                                   type: array
                                   items:
                                     type: object
-                                    $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/controlCard/items'
+                                    $ref: '#/components/schemas/controlCard_'
                                 assignedFee:
                                   type: array
                                   items:
                                     type: object
-                                    $ref: '#/components/schemas/entryList/properties/teamEntry/items/properties/teamEntryPerson/items/properties/assignedFee/items'
+                                    $ref: '#/components/schemas/assignedFee_'
                                 serviceRequest:
                                   type: array
                                   items:
@@ -2177,12 +1731,12 @@ components:
                                     $ref: '#/components/schemas/entryList/properties/teamEntry/items/properties/serviceRequest/items'
                                 extensions:
                                   type: object
-                                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                                  $ref: '#/components/schemas/extensions'
                                 raceNumber:
                                   type: integer
                           extensions:
                             type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                            $ref: '#/components/schemas/extensions'
                           modifyTime:
                             type: integer
                             format: utc-millisec
@@ -2190,7 +1744,7 @@ components:
                       type: array
                       items:
                         type: object
-                        $ref: '#/components/schemas/entryList/properties/teamEntry/items/properties/teamEntryPerson/items/properties/assignedFee/items'
+                        $ref: '#/components/schemas/assignedFee_'
                     serviceRequest:
                       type: array
                       items:
@@ -2198,13 +1752,13 @@ components:
                         $ref: '#/components/schemas/entryList/properties/teamEntry/items/properties/serviceRequest/items'
                     extensions:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                      $ref: '#/components/schemas/extensions'
                     modifyTime:
                       type: integer
                       format: utc-millisec
               extensions:
                 type: object
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                $ref: '#/components/schemas/extensions'
               timeResolution:
                 type: number
               modifyTime:
@@ -2212,7 +1766,7 @@ components:
                 format: utc-millisec
         extensions:
           type: object
-          $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+          $ref: '#/components/schemas/extensions'
     resultList:
       type: object
       properties:
@@ -2233,7 +1787,7 @@ components:
             properties:
               clazz:
                 type: object
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items'
+                $ref: '#/components/schemas/clazz_'
               course:
                 type: array
                 items:
@@ -2246,13 +1800,13 @@ components:
                   properties:
                     entryId:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                      $ref: '#/components/schemas/id_'
                     person:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person'
+                      $ref: '#/components/schemas/person'
                     organisation:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items'
+                      $ref: '#/components/schemas/organisation_'
                     result:
                       type: array
                       items:
@@ -2329,7 +1883,7 @@ components:
                                   $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/score/items'
                               extensions:
                                 type: object
-                                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                                $ref: '#/components/schemas/extensions'
                           course:
                             type: object
                             $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items/properties/raceClass/items/properties/course/items'
@@ -2344,7 +1898,7 @@ components:
                                   type: number
                                 extensions:
                                   type: object
-                                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                                  $ref: '#/components/schemas/extensions'
                                 status:
                                   type: string
                           controlAnswer:
@@ -2360,7 +1914,7 @@ components:
                                   type: number
                                 extensions:
                                   type: object
-                                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                                  $ref: '#/components/schemas/extensions'
                           route:
                             type: object
                             properties:
@@ -2372,12 +1926,12 @@ components:
                             type: array
                             items:
                               type: object
-                              $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/controlCard/items'
+                              $ref: '#/components/schemas/controlCard_'
                           assignedFee:
                             type: array
                             items:
                               type: object
-                              $ref: '#/components/schemas/entryList/properties/teamEntry/items/properties/teamEntryPerson/items/properties/assignedFee/items'
+                              $ref: '#/components/schemas/assignedFee_'
                           serviceRequest:
                             type: array
                             items:
@@ -2385,12 +1939,12 @@ components:
                               $ref: '#/components/schemas/entryList/properties/teamEntry/items/properties/serviceRequest/items'
                           extensions:
                             type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                            $ref: '#/components/schemas/extensions'
                           raceNumber:
                             type: integer
                     extensions:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                      $ref: '#/components/schemas/extensions'
                     modifyTime:
                       type: integer
                       format: utc-millisec
@@ -2401,14 +1955,14 @@ components:
                   properties:
                     entryId:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                      $ref: '#/components/schemas/id_'
                     name:
                       type: string
                     organisation:
                       type: array
                       items:
                         type: object
-                        $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items'
+                        $ref: '#/components/schemas/organisation_'
                     bibNumber:
                       type: string
                     teamMemberResult:
@@ -2418,13 +1972,13 @@ components:
                         properties:
                           entryId:
                             type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/id/items'
+                            $ref: '#/components/schemas/id_'
                           person:
                             type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person'
+                            $ref: '#/components/schemas/person'
                           organisation:
                             type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items'
+                            $ref: '#/components/schemas/organisation_'
                           result:
                             type: array
                             items:
@@ -2508,12 +2062,12 @@ components:
                                   type: array
                                   items:
                                     type: object
-                                    $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/controlCard/items'
+                                    $ref: '#/components/schemas/controlCard_'
                                 assignedFee:
                                   type: array
                                   items:
                                     type: object
-                                    $ref: '#/components/schemas/entryList/properties/teamEntry/items/properties/teamEntryPerson/items/properties/assignedFee/items'
+                                    $ref: '#/components/schemas/assignedFee_'
                                 serviceRequest:
                                   type: array
                                   items:
@@ -2521,12 +2075,12 @@ components:
                                     $ref: '#/components/schemas/entryList/properties/teamEntry/items/properties/serviceRequest/items'
                                 extensions:
                                   type: object
-                                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                                  $ref: '#/components/schemas/extensions'
                                 raceNumber:
                                   type: integer
                           extensions:
                             type: object
-                            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                            $ref: '#/components/schemas/extensions'
                           modifyTime:
                             type: integer
                             format: utc-millisec
@@ -2534,7 +2088,7 @@ components:
                       type: array
                       items:
                         type: object
-                        $ref: '#/components/schemas/entryList/properties/teamEntry/items/properties/teamEntryPerson/items/properties/assignedFee/items'
+                        $ref: '#/components/schemas/assignedFee_'
                     serviceRequest:
                       type: array
                       items:
@@ -2542,10 +2096,10 @@ components:
                         $ref: '#/components/schemas/entryList/properties/teamEntry/items/properties/serviceRequest/items'
                     extensions:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                      $ref: '#/components/schemas/extensions'
               extensions:
                 type: object
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+                $ref: '#/components/schemas/extensions'
               timeResolution:
                 type: number
               modifyTime:
@@ -2553,7 +2107,7 @@ components:
                 format: utc-millisec
         extensions:
           type: object
-          $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+          $ref: '#/components/schemas/extensions'
         status:
           type: string
     serviceRequestList:
@@ -2576,7 +2130,7 @@ components:
             properties:
               organisation:
                 type: object
-                $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/organisation/items'
+                $ref: '#/components/schemas/organisation_'
               serviceRequest:
                 type: array
                 items:
@@ -2589,7 +2143,7 @@ components:
                   properties:
                     person:
                       type: object
-                      $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person'
+                      $ref: '#/components/schemas/person'
                     serviceRequest:
                       type: array
                       items:
@@ -2602,7 +2156,7 @@ components:
             $ref: '#/components/schemas/serviceRequestList/properties/organisationServiceRequest/items/properties/personServiceRequest/items'
         extensions:
           type: object
-          $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+          $ref: '#/components/schemas/extensions'
     controlCardList:
       type: object
       properties:
@@ -2619,7 +2173,486 @@ components:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/controlCard/items'
+            $ref: '#/components/schemas/controlCard_'
         extensions:
           type: object
-          $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/person/properties/extensions'
+          $ref: '#/components/schemas/extensions'
+    extensions:
+      type: object
+      properties:
+        any:
+          type: array
+          items: {}
+    person:
+      type: object
+      properties:
+        id:
+          type: array
+          items:
+            $ref: '#/components/schemas/id_'
+        name:
+          type: object
+          properties:
+            family:
+              type: string
+            given:
+              type: string
+        birthDate:
+          type: integer
+          format: utc-millisec
+        nationality:
+          $ref: '#/components/schemas/nationality'
+        address:
+          type: array
+          items:
+            $ref: '#/components/schemas/address_'
+        contact:
+          type: array
+          items:
+            $ref: '#/components/schemas/contact_'
+        sex:
+          type: string
+        modifyTime:
+          type: integer
+          format: utc-millisec
+    contact_:
+      type: object
+      properties:
+        value:
+          type: string
+        type:
+          type: string
+        modifyTime:
+          type: integer
+          format: utc-millisec
+    address_:
+      type: object
+      properties:
+        careOf:
+          type: string
+        street:
+          type: string
+        zipCode:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        country:
+          type: object
+          $ref: '#/components/schemas/nationality'
+        type:
+          type: string
+        modifyTime:
+          type: integer
+          format: utc-millisec
+    id_:
+      type: object
+      properties:
+        value:
+          type: string
+        type:
+          type: string
+    nationality:
+      type: object
+      properties:
+        value:
+          type: string
+        code:
+          type: string
+    position:
+      type: object
+      properties:
+        lng:
+          type: number
+        lat:
+          type: number
+        alt:
+          type: number
+    organisation_:
+        type: object
+        properties:
+          id:
+            type: object
+            $ref: '#/components/schemas/id_'
+          name:
+            type: string
+          shortName:
+            type: string
+          mediaName:
+            type: string
+          parentOrganisationId:
+            type: integer
+          country:
+            type: object
+            $ref: '#/components/schemas/nationality'
+          address:
+            type: array
+            items:
+              type: object
+              $ref: '#/components/schemas/address_'
+          contact:
+            type: array
+            items:
+              type: object
+              $ref: '#/components/schemas/contact_'
+          position:
+            $ref: '#/components/schemas/position'
+          account:
+            type: array
+            items:
+              type: object
+              properties:
+                value:
+                  type: string
+                type:
+                  type: string
+          role:
+            type: array
+            items:
+              $ref: '#/components/schemas/role_'
+          logotype:
+            type: array
+            items:
+              type: object
+              properties:
+                value:
+                  type: array
+                  items:
+                    type: integer
+                url:
+                  type: string
+                mediaType:
+                  type: string
+                width:
+                  type: integer
+                height:
+                  type: integer
+                resolution:
+                  type: number
+          extensions:
+            type: object
+            $ref: '#/components/schemas/extensions'
+          type:
+            type: string
+          modifyTime:
+            type: integer
+            format: utc-millisec
+    clazz_:
+      type: object
+      properties:
+        id:
+          type: object
+          $ref: '#/components/schemas/id_'
+        name:
+          type: string
+        shortName:
+          type: string
+        classType:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: object
+                $ref: '#/components/schemas/id_'
+              name:
+                type: string
+              modifyTime:
+                type: integer
+                format: utc-millisec
+        leg:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              extensions:
+                type: object
+                $ref: '#/components/schemas/extensions'
+              minNumberOfCompetitors:
+                type: integer
+              maxNumberOfCompetitors:
+                type: integer
+        teamFee:
+          type: array
+          items:
+            $ref: '#/components/schemas/fee_'
+        fee:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/fee_'
+        status:
+          type: string
+          enum:
+            - NORMAL
+            - DIVIDED
+            - JOINED
+            - INVALIDATED
+            - INVALIDATED_NO_FEE
+        raceClass:
+          type: array
+          items:
+            type: object
+            properties:
+              punchingSystem:
+                type: array
+                items:
+                  type: string
+              teamFee:
+                type: array
+                items:
+                  type: object
+                  $ref: '#/components/schemas/fee_'
+              fee:
+                type: array
+                items:
+                  type: object
+                  $ref: '#/components/schemas/fee_'
+              firstStart:
+                type: integer
+                format: utc-millisec
+              status:
+                type: string
+                enum:
+                  - START_TIMES_NOT_ALLOCATED
+                  - START_TIMES_ALLOCATED
+                  - NOT_USED
+                  - COMPLETED
+                  - INVALIDATED
+                  - INVALIDATED_NO_FEE
+              course:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: object
+                      $ref: '#/components/schemas/id_'
+                    name:
+                      type: string
+                    courseFamily:
+                      type: string
+                    length:
+                      type: number
+                    climb:
+                      type: number
+                    numberOfControls:
+                      type: integer
+              onlineControl:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: object
+                      $ref: '#/components/schemas/id_'
+                    punchingUnitId:
+                      type: array
+                      items:
+                        type: object
+                        $ref: '#/components/schemas/id_'
+                    name:
+                      type: array
+                      items:
+                        type: object
+                        $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/clazz/items/properties/teamFee/items/properties/name/items'
+                    position:
+                      type: object
+                      $ref: '#/components/schemas/position'
+                    mapPosition:
+                      $ref: '#/components/schemas/mapPosition'
+                    extensions:
+                      type: object
+                      $ref: '#/components/schemas/extensions'
+                    type:
+                      type: string
+                      enum:
+                        - CONTROL
+                        - START
+                        - FINISH
+                        - CROSSING_POINT
+                        - END_OF_MARKED_ROUTE
+                    modifyTime:
+                      type: integer
+                      format: utc-millisec
+              extensions:
+                type: object
+                $ref: '#/components/schemas/extensions'
+              raceNumber:
+                type: integer
+              maxNumberOfCompetitors:
+                type: integer
+              modifyTime:
+                type: integer
+                format: utc-millisec
+        tooFewEntriesSubstituteClass:
+          type: object
+          $ref: '#/components/schemas/clazz_'
+        tooManyEntriesSubstituteClass:
+          type: object
+          $ref: '#/components/schemas/clazz_'
+        extensions:
+          type: object
+          $ref: '#/components/schemas/extensions'
+        minAge:
+          type: integer
+        maxAge:
+          type: integer
+        sex:
+          type: string
+        minNumberOfTeamMembers:
+          type: integer
+        maxNumberOfTeamMembers:
+          type: integer
+        minTeamAge:
+          type: integer
+        maxTeamAge:
+          type: integer
+        numberOfCompetitors:
+          type: integer
+        maxNumberOfCompetitors:
+          type: integer
+        resultListMode:
+          type: string
+        modifyTime:
+          type: integer
+          format: utc-millisec
+    dateTime:
+      type: object
+      properties:
+        date:
+          type: integer
+          format: utc-millisec
+        time:
+          type: integer
+          format: utc-millisec
+    languageString:
+      type: object
+      properties:
+        value:
+          type: string
+        language:
+          type: string
+    role_:
+      type: object
+      properties:
+        person:
+          type: object
+          $ref: '#/components/schemas/person'
+        type:
+          type: string
+    competitor_:
+      type: object
+      properties:
+        person:
+          $ref: '#/components/schemas/person'
+        organisation:
+          type: array
+          items:
+            $ref: '#/components/schemas/organisation_'
+        controlCard:
+          type: array
+          items:
+            $ref: '#/components/schemas/controlCard_'
+        clazz:
+          type: array
+          items:
+            $ref: '#/components/schemas/clazz_'
+        score:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: number
+              type:
+                type: string
+        extensions:
+          type: object
+          $ref: '#/components/schemas/extensions'
+        modifyTime:
+          type: integer
+          format: utc-millisec
+    amount:
+      type: object
+      properties:
+        value:
+          type: number
+        currency:
+          type: string
+    fee_:
+      type: object
+      properties:
+        id:
+          type: object
+          $ref: '#/components/schemas/id_'
+        name:
+          type: array
+          items:
+            $ref: '#/components/schemas/languageString'
+        amount:
+          $ref: '#/components/schemas/amount'
+        taxableAmount:
+          type: object
+          $ref: '#/components/schemas/amount'
+        percentage:
+          type: number
+        taxablePercentage:
+          type: number
+        validFromTime:
+          type: integer
+          format: utc-millisec
+        validToTime:
+          type: integer
+          format: utc-millisec
+        fromDateOfBirth:
+          type: integer
+          format: utc-millisec
+        toDateOfBirth:
+          type: integer
+          format: utc-millisec
+        extensions:
+          type: object
+          $ref: '#/components/schemas/extensions'
+        type:
+          type: string
+        modifyTime:
+          type: integer
+          format: utc-millisec
+    assignedFee_:
+      type: object
+      properties:
+        fee:
+          type: object
+          $ref: '#/components/schemas/fee_'
+        paidAmount:
+          type: object
+          $ref: '#/components/schemas/amount'
+        extensions:
+          type: object
+          $ref: '#/components/schemas/extensions'
+        modifyTime:
+          type: integer
+          format: utc-millisec
+    controlCard_:
+      type: object
+      properties:
+        value:
+          type: string
+        punchingSystem:
+          type: string
+        modifyTime:
+          type: integer
+          format: utc-millisec
+    mapPosition:
+      type: object
+      properties:
+        x:
+          type: number
+        'y':
+          type: number
+        unit:
+          type: string
