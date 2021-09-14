@@ -1006,7 +1006,7 @@ components:
                       type: array
                       items:
                         type: object
-                        $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/score/items'
+                        $ref: '#/components/schemas/score_'
                     assignedFee:
                       type: array
                       items:
@@ -1068,7 +1068,7 @@ components:
                 type: array
                 items:
                   type: object
-                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/score/items'
+                  $ref: '#/components/schemas/score_'
               clazz:
                 type: array
                 items:
@@ -1510,80 +1510,22 @@ components:
                             type: array
                             items:
                               type: object
-                              $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/score/items'
+                              $ref: '#/components/schemas/score_'
                           overallResult:
-                            type: object
-                            properties:
-                              time:
-                                type: number
-                              timeBehind:
-                                type: number
-                              position:
-                                type: integer
-                              status:
-                                type: string
-                                enum:
-                                  - OK
-                                  - FINISHED
-                                  - MISSING_PUNCH
-                                  - DISQUALIFIED
-                                  - DID_NOT_FINISH
-                                  - ACTIVE
-                                  - INACTIVE
-                                  - OVER_TIME
-                                  - SPORTING_WITHDRAWAL
-                                  - NOT_COMPETING
-                                  - MOVED
-                                  - MOVED_UP
-                                  - DID_NOT_START
-                                  - DID_NOT_ENTER
-                                  - CANCELLED
-                              score:
-                                type: array
-                                items:
-                                  type: object
-                                  $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/score/items'
-                              extensions:
-                                type: object
-                                $ref: '#/components/schemas/extensions'
+                            $ref: '#/components/schemas/overallResult'
                           course:
                             type: object
                             $ref: '#/components/schemas/simpleCourse'
                           splitTime:
                             type: array
                             items:
-                              type: object
-                              properties:
-                                controlCode:
-                                  type: string
-                                time:
-                                  type: number
-                                extensions:
-                                  type: object
-                                  $ref: '#/components/schemas/extensions'
-                                status:
-                                  type: string
+                              $ref: '#/components/schemas/splitTime_'
                           controlAnswer:
                             type: array
                             items:
-                              type: object
-                              properties:
-                                answer:
-                                  type: string
-                                correctAnswer:
-                                  type: string
-                                time:
-                                  type: number
-                                extensions:
-                                  type: object
-                                  $ref: '#/components/schemas/extensions'
+                              $ref: '#/components/schemas/controlAnswer_'
                           route:
-                            type: object
-                            properties:
-                              value:
-                                type: array
-                                items:
-                                  type: integer
+                            $ref: '#/components/schemas/route'
                           controlCard:
                             type: array
                             items:
@@ -1700,10 +1642,10 @@ components:
                                   type: array
                                   items:
                                     type: object
-                                    $ref: '#/components/schemas/competitorList/properties/competitor/items/properties/score/items'
+                                    $ref: '#/components/schemas/score_'
                                 overallResult:
                                   type: object
-                                  $ref: '#/components/schemas/resultList/properties/classResult/items/properties/personResult/items/properties/result/items/properties/overallResult'
+                                  $ref: '#/components/schemas/overallResult'
                                 course:
                                   type: object
                                   $ref: '#/components/schemas/simpleCourse'
@@ -1711,15 +1653,15 @@ components:
                                   type: array
                                   items:
                                     type: object
-                                    $ref: '#/components/schemas/resultList/properties/classResult/items/properties/personResult/items/properties/result/items/properties/splitTime/items'
+                                    $ref: '#/components/schemas/splitTime_'
                                 controlAnswer:
                                   type: array
                                   items:
                                     type: object
-                                    $ref: '#/components/schemas/resultList/properties/classResult/items/properties/personResult/items/properties/result/items/properties/controlAnswer/items'
+                                    $ref: '#/components/schemas/controlAnswer_'
                                 route:
                                   type: object
-                                  $ref: '#/components/schemas/resultList/properties/classResult/items/properties/personResult/items/properties/result/items/properties/route'
+                                  $ref: '#/components/schemas/route'
                                 controlCard:
                                   type: array
                                   items:
@@ -2157,18 +2099,20 @@ components:
         score:
           type: array
           items:
-            type: object
-            properties:
-              value:
-                type: number
-              type:
-                type: string
+            $ref: '#/components/schemas/score_'
         extensions:
           type: object
           $ref: '#/components/schemas/extensions'
         modifyTime:
           type: integer
           format: utc-millisec
+    score_:
+      type: object
+      properties:
+        value:
+          type: number
+        type:
+          type: string
     amount:
       type: object
       properties:
@@ -2682,3 +2626,69 @@ components:
         modifyTime:
           type: integer
           format: utc-millisec
+    overallResult:
+      type: object
+      properties:
+        time:
+          type: number
+        timeBehind:
+          type: number
+        position:
+          type: integer
+        status:
+          type: string
+          enum:
+            - OK
+            - FINISHED
+            - MISSING_PUNCH
+            - DISQUALIFIED
+            - DID_NOT_FINISH
+            - ACTIVE
+            - INACTIVE
+            - OVER_TIME
+            - SPORTING_WITHDRAWAL
+            - NOT_COMPETING
+            - MOVED
+            - MOVED_UP
+            - DID_NOT_START
+            - DID_NOT_ENTER
+            - CANCELLED
+        score:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/score_'
+        extensions:
+          type: object
+          $ref: '#/components/schemas/extensions'
+    splitTime_:
+      type: object
+      properties:
+        controlCode:
+          type: string
+        time:
+          type: number
+        extensions:
+          type: object
+          $ref: '#/components/schemas/extensions'
+        status:
+          type: string
+    controlAnswer_:
+      type: object
+      properties:
+        answer:
+          type: string
+        correctAnswer:
+          type: string
+        time:
+          type: number
+        extensions:
+          type: object
+          $ref: '#/components/schemas/extensions'
+    route:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            type: integer
