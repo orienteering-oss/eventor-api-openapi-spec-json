@@ -131,26 +131,7 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                    referenceId:
-                      description: The event ID this document belongs to
-                      type: string
-                    name:
-                      description: Name of document
-                      type: string
-                    url:
-                      type: string
-                    type:
-                      type: string
-                      enum:
-                        - Invitation
-                        - Other
-                    modifyDate:
-                      example: '2017-10-01T23:59:24'
-                      type: string
+                  $ref: '#/components/schemas/eventDocument'
   /event/{eventId}:
     get:
       summary: Returns an event.
@@ -333,10 +314,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  externalLoginUrl:
-                    type: string
+                $ref: '#/components/schemas/externalLogin'
   /authenticatePerson:
     get:
       summary: Returns the person matching the specified user name and password.
@@ -482,23 +460,7 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    eventId:
-                      type: string
-                    numberOfEntries:
-                      type: integer
-                    numberOfStarts:
-                      type: integer
-                    organisationCompetitorCount:
-                      type: object
-                      properties:
-                        organisationId:
-                          type: string
-                        numberOfEntries:
-                          type: integer
-                        numberOfStarts:
-                          type: integer
+                  $ref: '#/components/schemas/competitorCount'
   /starts/event:
     get:
       summary: Returns start times for an event.
@@ -781,7 +743,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/competitorList/properties/competitor/items'
+                $ref: '#/components/schemas/competitor_'
   /competitor:
     put:
       summary: Saves a person's event settings (e.g. pre-selected classes and punching card numbers).
@@ -791,14 +753,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/competitorList/properties/competitor/items'
+              $ref: '#/components/schemas/competitor_'
       responses:
         '200':
           description: XML element `Competitor`
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/competitorList/properties/competitor/items'
+                $ref: '#/components/schemas/competitor_'
   /export/competitors:
     get:
       summary: Returns all persons that are members for given organisations
@@ -864,12 +826,7 @@ paths:
           content:
             application/xml:
               schema:
-                type: object
-                properties:
-                  resultListUrl:
-                    type: string
-                  splitTimeListUrl:
-                    type: string
+                $ref: '#/components/schemas/importResultListResult'
       requestBody:
         description: XML element `ResultList`
         required: true
@@ -2692,3 +2649,58 @@ components:
           type: array
           items:
             type: integer
+    eventDocument:
+      type: object
+      properties:
+        id:
+          type: string
+        referenceId:
+          description: The event ID this document belongs to
+          type: string
+        name:
+          description: Name of document
+          type: string
+        url:
+          type: string
+        type:
+          $ref: '#/components/schemas/eventDocumentType'
+        modifyDate:
+          example: '2017-10-01T23:59:24'
+          type: string
+    eventDocumentType:
+      type: string
+      enum:
+        - Invitation
+        - Other
+    externalLogin:
+      type: object
+      properties:
+        externalLoginUrl:
+          type: string
+    competitorCount:
+      type: object
+      properties:
+        eventId:
+          type: string
+        numberOfEntries:
+          type: integer
+        numberOfStarts:
+          type: integer
+        organisationCompetitorCount:
+          $ref: '#/components/schemas/organisationCompetitorCount'
+    organisationCompetitorCount:
+      type: object
+      properties:
+        organisationId:
+          type: string
+        numberOfEntries:
+          type: integer
+        numberOfStarts:
+          type: integer
+    importResultListResult:
+      type: object
+      properties:
+        resultListUrl:
+          type: string
+        splitTimeListUrl:
+          type: string
