@@ -1,6 +1,6 @@
 # eventor-api-openapi-spec-json
 
-[![Travis build status](https://app.travis-ci.com/orienteering-oss/eventor-api-openapi-spec-json.svg?branch=main)](https://travis-ci.com/github/orienteering-oss/eventor-api-openapi-spec-json)
+[![Validate OpenAPI spec](https://github.com/orienteering-oss/eventor-api-openapi-spec-json/actions/workflows/validate.yml/badge.svg)](https://github.com/orienteering-oss/eventor-api-openapi-spec-json/actions/workflows/validate.yml)
 
 :warning: **NB:** this is an unofficial JSON version of the API. See
 [orienteering-oss/eventor-api-openapi-spec](https://github.com/orienteering-oss/eventor-api-openapi-spec)
