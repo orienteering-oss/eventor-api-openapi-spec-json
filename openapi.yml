@@ -8,7 +8,7 @@ info:
   termsOfService: https://eventor.orientering.se/Home/About
   contact:
     name: Eventor
-    url: https://eventor.orienteering.org/api/documentation
+    url: https://eventor.orienteering.sport/api/documentation
 
 servers:
   - url: https://eventor.orientering.no/api
@@ -17,7 +17,7 @@ servers:
     description: Swedish Eventor API
   - url: https://eventor.orienteering.asn.au/api
     description: Australian Eventor API
-  - url: https://eventor.orienteering.org/api
+  - url: https://eventor.orienteering.sport/api
     description: International Eventor API
 
 security:
@@ -69,7 +69,7 @@ paths:
           schema:
             type: string
             example: 4,5
-          description: Comma-separated list of event classification IDs, where 1=championship event, 2=national event, 3=state event, 4=local event, 5=club event. Omit to include all events.
+          description: Comma-separated list of event classification IDs, where 1=championship event, 2=national event, 3=state event, 4=local event, 5=club event, 6=international event. Omit to include all events.
         - in: query
           name: includeEntryBreaks
           schema:
@@ -257,6 +257,18 @@ paths:
             type: boolean
             default: false
           description: Set to `true` to include the members' addresses, phone numbers and email addresses.
+        - in: query
+          name: includePersonProperties
+          schema:
+            type: boolean
+            default: false
+          description: Set to `true` to include extended information.
+        - in: query
+          name: includePersonIdentifiers
+          schema:
+            type: boolean
+            default: false
+          description: Set to `true` to include a person's external IDs.
       responses:
         '200':
           description: XML element `PersonList`
@@ -343,6 +355,20 @@ paths:
   /entries:
     get:
       summary: Returns persons entered to an event as specified by the search parameters.
+      description: |
+        Only returns entries booked through Eventor's online pre-registration
+        system. Walk-up / direct entries registered at the event itself (common
+        in open classes such as *N-åpen* / *C-åpen* / *A-åpen*) are not included,
+        so this can significantly undercount participants. Use `/starts/event`
+        for the full list of starters once a start list has been published.
+
+        Before a start list or result list is uploaded, this endpoint and the
+        Eventor web UI's *Entries* tab hold the same data. Once a start list or
+        result list is uploaded, the UI tab is recalculated from it and then
+        shows every person present (including walk-ups and entries from other
+        systems), while this endpoint keeps returning only those who originally
+        registered through Eventor's online registration — so the UI can report
+        a higher count.
       parameters:
         - in: query
           name: organisationIds
@@ -464,6 +490,11 @@ paths:
   /starts/event:
     get:
       summary: Returns start times for an event.
+      description: |
+        Returns every starter, including walk-up / direct entries that
+        `/entries` omits, and carries `<CCardId>` for each start. Empty until a
+        start list has been published — check `startListExists` on the event and
+        fall back to `/entries` before the draw.
       parameters:
         - in: query
           name: eventId
@@ -479,6 +510,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/startList'
+  /starts/event/iofxml:
+    get:
+      summary: Returns start times in IOF XML 3.0 format for an event.
+      description: |
+        Like `/starts/event`, returns every starter (including walk-ups) and is
+        empty until a start list has been published. Unlike the native variant,
+        this IOF XML variant omits `<ControlCard>` — use `/starts/event` if you
+        need control cards for walk-up starters.
+      parameters:
+        - in: query
+          name: eventId
+          schema:
+            type: integer
+            example: 8248
+          required: true
+          description: Event ID as specified by `/events`.
+        - in: query
+          name: eventRaceId
+          schema:
+            type: integer
+            example: 1
+          description: Race ID as specified by `/events`.
+      responses:
+        '200':
+          description: IOF XML 3.0 `StartList`
+          content:
+            application/xml:
+              schema:
+                type: string
   /starts/person:
     get:
       summary: Returns start times for a person in a number of events.
@@ -571,6 +631,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/resultList'
+  /results/event/iofxml:
+    get:
+      summary: Returns results in IOF XML 3.0 format for an event.
+      parameters:
+        - in: query
+          name: eventId
+          schema:
+            type: integer
+            example: 8248
+          required: true
+          description: Event ID as specified by `/events`.
+        - in: query
+          name: eventRaceId
+          schema:
+            type: integer
+            example: 1
+          description: Race ID as specified by `/events`.
+        - in: query
+          name: includeSplitTimes
+          schema:
+            type: boolean
+            example: false
+          description: Set to `true` to include split times.
+        - in: query
+          name: totalResult
+          schema:
+            type: boolean
+            example: false
+          description: Set to `true` to return total results if the event is a multi-race event.
+      responses:
+        '200':
+          description: IOF XML 3.0 `ResultList`
+          content:
+            application/xml:
+              schema:
+                type: string
   /results/person:
     get:
       summary: Returns results for a person in a number of events.
@@ -726,17 +822,17 @@ paths:
             application/xml:
               schema:
                 type: string
-  /competitor/{personId}:
+  /competitor/{competitorId}:
     get:
       summary: Returns a person's event settings (e.g. pre-selected classes and punching card numbers).
       parameters:
         - in: path
-          name: personId
+          name: competitorId
           schema:
             type: integer
             example: 1
           required: true
-          description: The ID of the person as specified by `/persons/organisations/{organisationId}`. The person must be a member of the organisation whose API key is used.
+          description: The person's competitor ID as specified by `/persons/organisations/{organisationId}`. Note that this is an internal ID, not the public person ID. The person must be a member of the organisation whose API key is used.
       responses:
         '200':
           description: XML element `Competitor`
