@@ -52,7 +52,7 @@ convert JSON schema to OpenAPI spec, using the
 [openapi-contrib/json-schema-to-openapi-schema](https://github.com/openapi-contrib/json-schema-to-openapi-schema)
 JavaScript library. This gave me a new file containing the IOF v3 JSON Schema as
 an OpenAPI spec. Then I copied this into the `components` section of the
-existing OpenAPI spec, and started using the correct `$ref`s for request bodys
+existing OpenAPI spec, and started using the correct `$ref`s for request bodies
 and responses.
 
 ## See also

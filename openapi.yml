@@ -325,14 +325,14 @@ paths:
             type: string
             example: OlaNordmann
           required: true
-          description: The person's user name i Eventor.
+          description: The person's user name in Eventor.
         - in: header
           name: Password
           schema:
             type: string
             example: 0r13nt3r1n5
           required: true
-          description: The person's password i Eventor.
+          description: The person's password in Eventor.
       responses:
         '200':
           description: XML element `Person`
