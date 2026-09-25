@@ -2,21 +2,24 @@
 
 [![Validate OpenAPI spec](https://github.com/orienteering-oss/eventor-api-openapi-spec-json/actions/workflows/validate.yml/badge.svg)](https://github.com/orienteering-oss/eventor-api-openapi-spec-json/actions/workflows/validate.yml)
 
-:warning: **NB:** this is an unofficial JSON version of the API. See
-[orienteering-oss/eventor-api-openapi-spec](https://github.com/orienteering-oss/eventor-api-openapi-spec)
-for an unofficial XML version (that is closer / equal to the official version of
-the API).
+**This is an experimental JSON model, not an API that serves JSON.**
+The Eventor servers listed in [openapi.yml](./openapi.yml) return XML, as does
+the current `eventor-proxy`.
+The `application/json` responses and request bodies in this spec describe a
+possible representation after local XML-to-JSON conversion; they do not describe
+the media types returned or accepted by those servers.
+Some operations in this spec still describe XML.
 
-JSON version of the OpenAPI spec / Swagger for the Eventor API:
-[openapi.yml](./openapi.yml).
+Use [eventor-api-openapi-spec](https://github.com/orienteering-oss/eventor-api-openapi-spec)
+for the actual Eventor HTTP API and for generated clients.
+This JSON spec has not been validated against a single converter or JSON-serving
+proxy, so do not use it as an executable API contract.
+Its [Swagger UI](https://orienteering-oss.github.io/eventor-api-openapi-spec-json)
+is useful for browsing the proposed JSON shapes, but its "Try it out" requests
+cannot return the JSON responses shown here.
 
-You can browse the
-[Swagger UI](https://orienteering-oss.github.io/eventor-api-openapi-spec-json)
-for this spec, but it will not work because of CORS. You can use it to browse
-and create cURL commands that you can execute in your own terminal. Or you could
-import the OpenAPI spec into Postman and make your calls from there.
-
-**What is Eventor?** Eventor is the event system for
+**What is Eventor?**
+Eventor is the event system for
 [orienteering](https://en.wikipedia.org/wiki/Orienteering) races in different
 countries, so if you want to arrange an orienteering event, you will probably
 register it in your local Eventor system to make other people see it and for
@@ -42,7 +45,8 @@ specification).
 
 I have previously manually assembled
 [an OpenAPI spec for the Eventor API](https://github.com/orienteering-oss/eventor-api-openapi-spec/blob/main/openapi.yml)
-with the XML content in mind. I have also previously converted the IOF v3 XSD
+with the XML content in mind.
+I have also previously converted the IOF v3 XSD
 into a
 [JSON Schema](https://github.com/orienteering-oss/iof-orienteering-data-schemas/blob/main/iof_v3_schema.json)
 with Jackson (see repo
@@ -50,20 +54,29 @@ with Jackson (see repo
 So I followed [a guide](https://blog.stoplight.io/openapi-json-schema) on how to
 convert JSON schema to OpenAPI spec, using the
 [openapi-contrib/json-schema-to-openapi-schema](https://github.com/openapi-contrib/json-schema-to-openapi-schema)
-JavaScript library. This gave me a new file containing the IOF v3 JSON Schema as
-an OpenAPI spec. Then I copied this into the `components` section of the
-existing OpenAPI spec, and started using the correct `$ref`s for request bodies
+JavaScript library.
+This gave me a new file containing the IOF v3 JSON Schema as
+an OpenAPI spec.
+Then I copied this into the `components` section of the
+existing OpenAPI spec, and started adding `$ref`s for request bodies
 and responses.
+
+The IOF JSON schema does not cover Eventor's native XML structures on endpoints
+such as `/events` and `/entries`.
+[iof-xml](https://github.com/orienteering-oss/iof-xml) converts standard IOF XML
+to JSON, but its output has a document-type wrapper such as `{"resultList": {...}}`
+that this spec does not model.
+[rescript-eventor](https://www.npmjs.com/package/rescript-eventor) parses several
+native Eventor XML responses into its own typed records, with a different shape.
+There is currently no converter known to produce this spec's JSON for every
+endpoint.
 
 ## See also
 
-- Almost all data returned from the API is specified in IOF JSON schema v3, see
-  this and XML version of the same spec in
-  [orienteering-oss/iof-orienteering-data-schemas](https://github.com/orienteering-oss/iof-orienteering-data-schemas)
-- Java helper library for converting XML from Eventor to JSON objects (and
-  back):
-  [orienteering-oss/iof-xml](https://github.com/orienteering-oss/iof-xml). It is
-  actually this library that does the converting behind the scenes for this
-  version of the API.
+- Standard IOF XML documents are defined by the
+  [IOF data schemas](https://github.com/orienteering-oss/iof-orienteering-data-schemas).
+- Native Eventor XML documents follow the [Eventor XSD](https://eventor.orientering.se/api/schema).
+- Java helper library for converting standard IOF XML to JSON (and back):
+  [orienteering-oss/iof-xml](https://github.com/orienteering-oss/iof-xml).
 - GraphQL version of the Eventor API:
   [mikaello/eventor-graphql-api](https://github.com/mikaello/eventor-graphql-api)
