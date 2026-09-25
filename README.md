@@ -66,6 +66,9 @@ such as `/events` and `/entries`.
 [iof-xml](https://github.com/orienteering-oss/iof-xml) converts standard IOF XML
 to JSON, but its output has a document-type wrapper such as `{"resultList": {...}}`
 that this spec does not model.
+Unwrapped JAXB/Jackson output with null fields omitted validated against this
+spec's `eventList` and `resultList` schemas for IOF XML responses from events
+23452 and 24759.
 [rescript-eventor](https://www.npmjs.com/package/rescript-eventor) parses several
 native Eventor XML responses into its own typed records, with a different shape.
 There is currently no converter known to produce this spec's JSON for every
